@@ -1,0 +1,103 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": 16,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "gWdr8QDz5xYP",
+        "outputId": "d0e8e91b-844f-4f50-f271-cdbbc0f89412"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[1, 2, 3, 4, 5] [2, 4, 5, 4, 5]\n",
+            "3.0 4.0\n",
+            "[-2.0, -1.0, 0.0, 1.0, 2.0] [-2.0, 0.0, 1.0, 0.0, 1.0]\n",
+            "6.0 10.0 0.6\n",
+            "6.0 10.0 0.6 2.2\n",
+            "The rgression line: y_hat = 0.6*x + 2.2\n",
+            "MSE value: 0.48\n"
+          ]
+        }
+      ],
+      "source": [
+        "# Finding the rgression line using least square method\n",
+        "def mse(Y, Y_hat, n):\n",
+        "  return sum([(i-j)**2 for i, j in zip(Y, Y_hat)]) / n #평균제곱 오차\n",
+        "\n",
+        "data = [(1,2), (2,4), (3,5), (4,4), (5,5)] #입력 데이터(관측값, 실제값)\n",
+        "X = [i[0] for i in data]                   #data의 x(즉, 독립 변수)값\n",
+        "Y = [i[1] for i in data]                   #data의 y(즉, 종속 변수)값\n",
+        "print(X, Y)\n",
+        "\n",
+        "xm = sum(X) / len(X)                       # X 데이터의 평균\n",
+        "ym = sum(Y) / len(Y)                       # Y 데이터의 평균\n",
+        "print(xm, ym)\n",
+        "\n",
+        "X_diff = [i - xm for i in X]               # 실제 x값과 평균 x값과의 차이\n",
+        "Y_diff = [i - ym for i in Y]               # 실제 y값과 평균 y값과의 차이\n",
+        "print(X_diff, Y_diff)\n",
+        "\n",
+        "# 기울기 구하기 (slope 또는 b1)\n",
+        "divisor = sum([i**2 for i in X_diff])                 # 기울기의 분모\n",
+        "dividend = sum([i*j for i, j in zip(X_diff, Y_diff)]) # 기울기의 분자\n",
+        "b1 = dividend / divisor\n",
+        "print(dividend, divisor, b1)\n",
+        "\n",
+        "# y-절편 구하기 (b0)\n",
+        "b0 = 4 - b1*3 # y_hat=b0+ b1*x\n",
+        "print(dividend, divisor, b1, b0)\n",
+        "print(f\"The rgression line: y_hat = {b1}*x + {b0}\")\n",
+        "\n",
+        "# Finding the mean squared error\n",
+        "Y_hat = [b1*x + b0 for x in X]            # 회귀 직선을 이용한 예측값\n",
+        "mse_value = mse(Y, Y_hat, len(Y))         # Y 종속 변수의 실제값, Y_hat: 예측값, len(Y): 크기\n",
+        "print(f\"MSE value: {round(mse_value, 2)}\")"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(X_diff, Y_diff)\n",
+        "print(list(zip(X_diff, Y_diff)))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "km05fDr-8xiF",
+        "outputId": "88f12029-b3a9-41ed-ad94-532effcad39e"
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[-2.0, -1.0, 0.0, 1.0, 2.0] [-2.0, 0.0, 1.0, 0.0, 1.0]\n",
+            "[(-2.0, -2.0), (-1.0, 0.0), (0.0, 1.0), (1.0, 0.0), (2.0, 1.0)]\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
