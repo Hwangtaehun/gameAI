@@ -24,11 +24,11 @@ template <class entity_type> class State; //pre-fixed with "template <class enti
 struct Telegram;
 
 //the amount of gold a miner must have before he feels he can go home
-const int ComfortLevel       = 5;
+const int CodeLevel       = 5;
 //the amount of nuggets a miner can carry
-const int MaxNuggets         = 3;
-//above this value a miner is thirsty
-const int ThirstLevel        = 5;
+const int MaxCode         = 3;
+//above this value a miner is Hungry
+const int HungryLevel        = 5;
 //above this value a miner is sleepy
 const int TirednessThreshold = 5;
 
@@ -44,30 +44,30 @@ private:
   location_type         m_Location;
 
   //how many nuggets the miner has in his pockets
-  int                   m_iGoldCarried;
+  int                   m_CurrentCode;
 
-  int                   m_iMoneyInBank;
+  int                   m_WholeCode;
 
   //the higher the value, the thirstier the miner
-  int                   m_iThirst;
+  int                   m_Hungry;
 
   //the higher the value, the more tired the miner
-  int                   m_iFatigue;
+  int                   m_Fatigue;
 
 public:
 
   Miner(int id):m_Location(shack),
-                          m_iGoldCarried(0),
-                          m_iMoneyInBank(0),
-                          m_iThirst(0),
-                          m_iFatigue(0),
+                          m_CurrentCode(0),
+                          m_WholeCode(0),
+                          m_Hungry(0),
+                          m_Fatigue(0),
                           BaseGameEntity(id)
                                
   {
     //set up state machine
     m_pStateMachine = new StateMachine<Miner>(this);
     
-    m_pStateMachine->SetCurrentState(GoHomeAndSleepTilRested::Instance());
+    m_pStateMachine->SetCurrentState(WriteCode::Instance());
 
     /* NOTE, A GLOBAL STATE HAS NOT BEEN IMPLEMENTED FOR THE MINER */
   }
@@ -89,21 +89,21 @@ public:
   location_type Location()const{return m_Location;}
   void          ChangeLocation(location_type loc){m_Location=loc;}
     
-  int           GoldCarried()const{return m_iGoldCarried;}
-  void          SetGoldCarried(int val){m_iGoldCarried = val;}
-  void          AddToGoldCarried(int val);
-  bool          PocketsFull()const{return m_iGoldCarried >= MaxNuggets;}
+  int           CurrentCode()const{return m_CurrentCode;}
+  void          SetCurrentCode(int val){m_CurrentCode = val;}
+  void          AddToCurrentCode(int val);
+  bool          CodeFull()const{return m_CurrentCode >= MaxCode;}
 
   bool          Fatigued()const;
-  void          DecreaseFatigue(){m_iFatigue -= 1;}
-  void          IncreaseFatigue(){m_iFatigue += 1;}
+  void          DecreaseFatigue(){m_Fatigue -= 1;}
+  void          IncreaseFatigue(){m_Fatigue += 1;}
 
-  int           Wealth()const{return m_iMoneyInBank;}
-  void          SetWealth(int val){m_iMoneyInBank = val;}
+  int           Wealth()const{return m_WholeCode;}
+  void          SetWealth(int val){m_WholeCode = val;}
   void          AddToWealth(int val);
 
-  bool          Thirsty()const; 
-  void          BuyAndDrinkAWhiskey(){m_iThirst = 0; m_iMoneyInBank-=2;}
+  bool          Hungry()const; 
+  void          EatAChocolate(){m_Hungry = 0; m_WholeCode-=2;}
 
 };
 

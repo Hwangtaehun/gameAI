@@ -10,37 +10,37 @@ void Miner::Update()
 {
   SetTextColor(FOREGROUND_RED| FOREGROUND_INTENSITY);
 
-  m_iThirst += 1;
+  m_Hungry += 1;
   
   m_pStateMachine->Update();
 }
 
 
 
-void Miner::AddToGoldCarried(const int val)
+void Miner::AddToCurrentCode(const int val)
 {
-  m_iGoldCarried += val;
+  m_CurrentCode += val;
 
-  if (m_iGoldCarried < 0) m_iGoldCarried = 0;
+  if (m_CurrentCode < 0) m_CurrentCode = 0;
 }
 
 void Miner::AddToWealth(const int val)
 {
-  m_iMoneyInBank += val;
+  m_WholeCode += val;
 
-  if (m_iMoneyInBank < 0) m_iMoneyInBank = 0;
+  if (m_WholeCode < 0) m_WholeCode = 0;
 }
 
-bool Miner::Thirsty()const
+bool Miner::Hungry()const
 {
-  if (m_iThirst >= ThirstLevel){return true;}
+  if (m_Hungry >= HungryLevel){return true;}
 
   return false;
 }
 
 bool Miner::Fatigued()const
 {
-  if (m_iFatigue > TirednessThreshold)
+  if (m_Fatigue > TirednessThreshold)
   {
     return true;
   }

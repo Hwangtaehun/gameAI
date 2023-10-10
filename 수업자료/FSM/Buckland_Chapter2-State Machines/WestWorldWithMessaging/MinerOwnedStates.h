@@ -23,23 +23,23 @@ struct Telegram;
 //
 //  In this state the miner will walk to a goldmine and pick up a nugget
 //  of gold. If the miner already has a nugget of gold he'll change state
-//  to VisitBankAndDepositGold. If he gets thirsty he'll change state
-//  to QuenchThirst
+//  to BackUpCode. If he gets thirsty he'll change state
+//  to EatSnack
 //------------------------------------------------------------------------
-class EnterMineAndDigForNugget : public State<Miner>
+class WriteCode : public State<Miner>
 {
 private:
   
-  EnterMineAndDigForNugget(){}
+  WriteCode(){}
 
   //copy ctor and assignment should be private
-  EnterMineAndDigForNugget(const EnterMineAndDigForNugget&);
-  EnterMineAndDigForNugget& operator=(const EnterMineAndDigForNugget&);
+  WriteCode(const WriteCode&);
+  WriteCode& operator=(const WriteCode&);
  
 public:
 
   //this is a singleton
-  static EnterMineAndDigForNugget* Instance();
+  static WriteCode* Instance();
 
   virtual void Enter(Miner* miner);
 
@@ -57,20 +57,20 @@ public:
 //  miner is subsequently wealthy enough he'll walk home, otherwise he'll
 //  keep going to get more gold
 //------------------------------------------------------------------------
-class VisitBankAndDepositGold : public State<Miner>
+class BackUpCode : public State<Miner>
 {
 private:
   
-  VisitBankAndDepositGold(){}
+  BackUpCode(){}
 
   //copy ctor and assignment should be private
-  VisitBankAndDepositGold(const VisitBankAndDepositGold&);
-  VisitBankAndDepositGold& operator=(const VisitBankAndDepositGold&);
+  BackUpCode(const BackUpCode&);
+  BackUpCode& operator=(const BackUpCode&);
  
 public:
 
   //this is a singleton
-  static VisitBankAndDepositGold* Instance();
+  static BackUpCode* Instance();
 
   virtual void Enter(Miner* miner);
 
@@ -87,20 +87,20 @@ public:
 //  miner will go home and sleep until his fatigue is decreased
 //  sufficiently
 //------------------------------------------------------------------------
-class GoHomeAndSleepTilRested : public State<Miner>
+class SendEmail : public State<Miner>
 {
 private:
   
-  GoHomeAndSleepTilRested(){}
+  SendEmail(){}
 
   //copy ctor and assignment should be private
-  GoHomeAndSleepTilRested(const GoHomeAndSleepTilRested&);
-  GoHomeAndSleepTilRested& operator=(const GoHomeAndSleepTilRested&);
+  SendEmail(const SendEmail&);
+  SendEmail& operator=(const SendEmail&);
  
 public:
 
   //this is a singleton
-  static GoHomeAndSleepTilRested* Instance();
+  static SendEmail* Instance();
 
   virtual void Enter(Miner* miner);
 
@@ -118,20 +118,20 @@ public:
 //  his thirst is quenched. When satisfied he returns to the goldmine
 //  and resumes his quest for nuggets.
 //------------------------------------------------------------------------
-class QuenchThirst : public State<Miner>
+class EatSnack : public State<Miner>
 {
 private:
   
-  QuenchThirst(){}
+  EatSnack(){}
 
   //copy ctor and assignment should be private
-  QuenchThirst(const QuenchThirst&);
-  QuenchThirst& operator=(const QuenchThirst&);
+  EatSnack(const EatSnack&);
+  EatSnack& operator=(const EatSnack&);
  
 public:
 
   //this is a singleton
-  static QuenchThirst* Instance();
+  static EatSnack* Instance();
 
   virtual void Enter(Miner* miner);
 
