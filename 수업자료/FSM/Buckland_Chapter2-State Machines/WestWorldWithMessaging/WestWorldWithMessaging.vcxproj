@@ -45,12 +45,13 @@
     <OutDir>.\Debug\</OutDir>
     <IntDir>.\Debug\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\byung\Dropbox\Teaching\GameAI\Buckland_PGAIBE_Source_VC6-VS2010\VS2010\Common;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Github\gameAI\수업자료\FSM\Common</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>.\Release\</OutDir>
     <IntDir>.\Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\Github\gameAI\수업자료\FSM\Common</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
