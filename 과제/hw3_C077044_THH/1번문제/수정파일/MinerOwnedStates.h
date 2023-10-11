@@ -148,20 +148,20 @@ public:
 //  this is implemented as a state blip. The miner eats the stew, gives
 //  Elsa some compliments and then returns to his previous state
 //------------------------------------------------------------------------
-class EatStew : public State<Miner>
+class MeetTime : public State<Miner>
 {
 private:
   
-  EatStew(){}
+  MeetTime(){}
 
   //copy ctor and assignment should be private
-  EatStew(const EatStew&);
-  EatStew& operator=(const EatStew&);
+  MeetTime(const MeetTime&);
+  MeetTime& operator=(const MeetTime&);
  
 public:
 
   //this is a singleton
-  static EatStew* Instance();
+  static MeetTime* Instance();
 
   virtual void Enter(Miner* miner);
 
