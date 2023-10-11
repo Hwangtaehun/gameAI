@@ -18,26 +18,36 @@ extern std::ofstream os;
 
 //-----------------------------------------------------------------------Global state
 
-WifesGlobalState* WifesGlobalState::Instance()
+ProfessorGlobalState* ProfessorGlobalState::Instance()
 {
-  static WifesGlobalState instance;
+  static ProfessorGlobalState instance;
 
   return &instance;
 }
 
 
-void WifesGlobalState::Execute(MinersWife* wife)
+void ProfessorGlobalState::Execute(MinersWife* wife)
 {
   //1 in 10 chance of needing the bathroom (provided she is not already
   //in the bathroom)
   if ( (RandFloat() < 0.1) && 
-       !wife->GetFSM()->isInState(*VisitBathroom::Instance()) )
+       !wife->GetFSM()->isInState(*WriteMemo::Instance()) )
   {
-    wife->GetFSM()->ChangeState(VisitBathroom::Instance());
+      switch (RandInt(0, 1))
+      {
+      case 0:
+          cout << "\n" << GetNameOfEntity(wife->ID()) << ": This part is weak";
+          wife->GetFSM()->ChangeState(FindReference::Instance());
+          break;
+      case 1:
+          cout << "\n" << GetNameOfEntity(wife->ID()) << ": This part is error";
+          wife->GetFSM()->ChangeState(WriteMemo::Instance());
+          break;
+      }
   }
 }
 
-bool WifesGlobalState::OnMessage(MinersWife* wife, const Telegram& msg)
+bool ProfessorGlobalState::OnMessage(MinersWife* wife, const Telegram& msg)
 {
   SetTextColor(BACKGROUND_RED|FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE);
 
@@ -53,7 +63,7 @@ bool WifesGlobalState::OnMessage(MinersWife* wife, const Telegram& msg)
      cout << "\n" << GetNameOfEntity(wife->ID()) << 
           ": Hi honey. Let me make you some of mah fine country stew";
 
-     wife->GetFSM()->ChangeState(CookStew::Instance());
+     wife->GetFSM()->ChangeState(InOffice::Instance());
    }
 
    return true;
@@ -63,106 +73,139 @@ bool WifesGlobalState::OnMessage(MinersWife* wife, const Telegram& msg)
   return false;
 }
 
-//-------------------------------------------------------------------------DoHouseWork
+//-------------------------------------------------------------------------CheckCode
 
-DoHouseWork* DoHouseWork::Instance()
+CheckCode* CheckCode::Instance()
 {
-  static DoHouseWork instance;
+  static CheckCode instance;
 
   return &instance;
 }
 
 
-void DoHouseWork::Enter(MinersWife* wife)
+void CheckCode::Enter(MinersWife* wife)
 {
-  cout << "\n" << GetNameOfEntity(wife->ID()) << ": Time to do some more housework!";
+  cout << "\n" << GetNameOfEntity(wife->ID()) << ": Open the file";
 }
 
 
-void DoHouseWork::Execute(MinersWife* wife)
+void CheckCode::Execute(MinersWife* wife)
 {
   switch(RandInt(0,2))
   {
   case 0:
 
-    cout << "\n" << GetNameOfEntity(wife->ID()) << ": Moppin' the floor";
+    cout << "\n" << GetNameOfEntity(wife->ID()) << ": Read the code";
 
     break;
 
   case 1:
 
-    cout << "\n" << GetNameOfEntity(wife->ID()) << ": Washin' the dishes";
+    cout << "\n" << GetNameOfEntity(wife->ID()) << ": In research";
 
     break;
 
   case 2:
 
-    cout << "\n" << GetNameOfEntity(wife->ID()) << ": Makin' the bed";
+    cout << "\n" << GetNameOfEntity(wife->ID()) << ": In class";
 
     break;
   }
 }
 
-void DoHouseWork::Exit(MinersWife* wife)
+void CheckCode::Exit(MinersWife* wife)
 {
 }
 
-bool DoHouseWork::OnMessage(MinersWife* wife, const Telegram& msg)
+bool CheckCode::OnMessage(MinersWife* wife, const Telegram& msg)
 {
   return false;
 }
 
-//------------------------------------------------------------------------VisitBathroom
+//------------------------------------------------------------------------WriteMemo
 
-VisitBathroom* VisitBathroom::Instance()
+WriteMemo* WriteMemo::Instance()
 {
-  static VisitBathroom instance;
+  static WriteMemo instance;
 
   return &instance;
 }
 
 
-void VisitBathroom::Enter(MinersWife* wife)
+void WriteMemo::Enter(MinersWife* wife)
 {  
-  cout << "\n" << GetNameOfEntity(wife->ID()) << ": Walkin' to the can. Need to powda mah pretty li'lle nose"; 
+  cout << "\n" << GetNameOfEntity(wife->ID()) << ": Open the memo"; 
 }
 
 
-void VisitBathroom::Execute(MinersWife* wife)
+void WriteMemo::Execute(MinersWife* wife)
 {
-  cout << "\n" << GetNameOfEntity(wife->ID()) << ": Ahhhhhh! Sweet relief!";
+  cout << "\n" << GetNameOfEntity(wife->ID()) << ": Write memo";
 
   wife->GetFSM()->RevertToPreviousState();
 }
 
-void VisitBathroom::Exit(MinersWife* wife)
+void WriteMemo::Exit(MinersWife* wife)
 {
-  cout << "\n" << GetNameOfEntity(wife->ID()) << ": Leavin' the Jon";
+  cout << "\n" << GetNameOfEntity(wife->ID()) << ": Save memo and close";
 }
 
 
-bool VisitBathroom::OnMessage(MinersWife* wife, const Telegram& msg)
+bool WriteMemo::OnMessage(MinersWife* wife, const Telegram& msg)
 {
   return false;
 }
 
+//------------------------------------------------------------------------WriteMemo
 
-//------------------------------------------------------------------------CookStew
-
-CookStew* CookStew::Instance()
+FindReference* FindReference::Instance()
 {
-  static CookStew instance;
+    static FindReference instance;
+
+    return &instance;
+}
+
+
+void FindReference::Enter(MinersWife* wife)
+{
+    cout << "\n" << GetNameOfEntity(wife->ID()) << ": Research the website";
+}
+
+
+void FindReference::Execute(MinersWife* wife)
+{
+    cout << "\n" << GetNameOfEntity(wife->ID()) << ": Find reference";
+
+    wife->GetFSM()->ChangeState(WriteMemo::Instance());
+}
+
+void FindReference::Exit(MinersWife* wife)
+{
+    cout << "\n" << GetNameOfEntity(wife->ID()) << ": Copy the web address";
+}
+
+
+bool FindReference::OnMessage(MinersWife* wife, const Telegram& msg)
+{
+    return false;
+}
+
+//------------------------------------------------------------------------InOffice
+
+InOffice* InOffice::Instance()
+{
+  static InOffice instance;
 
   return &instance;
 }
 
 
-void CookStew::Enter(MinersWife* wife)
+void InOffice::Enter(MinersWife* wife)
 {
   //if not already cooking put the stew in the oven
   if (!wife->Cooking())
   {
-    cout << "\n" << GetNameOfEntity(wife->ID()) << ": Putting the stew in the oven";
+    cout << "\n" << GetNameOfEntity(wife->ID()) << ": received mail";
   
     //send a delayed message myself so that I know when to take the stew
     //out of the oven
@@ -177,20 +220,20 @@ void CookStew::Enter(MinersWife* wife)
 }
 
 
-void CookStew::Execute(MinersWife* wife)
+void InOffice::Execute(MinersWife* wife)
 {
-  cout << "\n" << GetNameOfEntity(wife->ID()) << ": Fussin' over food";
+  cout << "\n" << GetNameOfEntity(wife->ID()) << ": Organize notes and Prepare for a meeting.";
 }
 
-void CookStew::Exit(MinersWife* wife)
+void InOffice::Exit(MinersWife* wife)
 {
   SetTextColor(FOREGROUND_GREEN|FOREGROUND_INTENSITY);
   
-  cout << "\n" << GetNameOfEntity(wife->ID()) << ": Puttin' the stew on the table";
+  cout << "\n" << GetNameOfEntity(wife->ID()) << ": talking the code";
 }
 
 
-bool CookStew::OnMessage(MinersWife* wife, const Telegram& msg)
+bool InOffice::OnMessage(MinersWife* wife, const Telegram& msg)
 {
   SetTextColor(BACKGROUND_RED|FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE);
 
@@ -202,7 +245,7 @@ bool CookStew::OnMessage(MinersWife* wife, const Telegram& msg)
            " at time: " << Clock->GetCurrentTime();
 
       SetTextColor(FOREGROUND_GREEN|FOREGROUND_INTENSITY);
-      cout << "\n" << GetNameOfEntity(wife->ID()) << ": StewReady! Lets eat";
+      cout << "\n" << GetNameOfEntity(wife->ID()) << ": Hello, Please have a seat here.";
 
       //let hubby know the stew is ready
       Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY,
@@ -213,7 +256,7 @@ bool CookStew::OnMessage(MinersWife* wife, const Telegram& msg)
 
       wife->SetCooking(false);
 
-      wife->GetFSM()->ChangeState(DoHouseWork::Instance());               
+      wife->GetFSM()->ChangeState(CheckCode::Instance());               
     }
 
     return true;

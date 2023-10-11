@@ -199,9 +199,9 @@ bool SendEmail::OnMessage(Miner* pMiner, const Telegram& msg)
      SetTextColor(FOREGROUND_RED|FOREGROUND_INTENSITY);
 
      cout << "\n" << GetNameOfEntity(pMiner->ID()) 
-          << ": Okay Hun, ahm a comin'!";
+          << ": a few hours later";
 
-     pMiner->GetFSM()->ChangeState(EatStew::Instance());
+     pMiner->GetFSM()->ChangeState(MeetTime::Instance());
       
      return true;
 
@@ -251,35 +251,36 @@ bool EatSnack::OnMessage(Miner* pMiner, const Telegram& msg)
   return false;
 }
 
-//------------------------------------------------------------------------EatStew
+//------------------------------------------------------------------------MeetTime
 
-EatStew* EatStew::Instance()
+MeetTime* MeetTime::Instance()
 {
-  static EatStew instance;
+  static MeetTime instance;
 
   return &instance;
 }
 
 
-void EatStew::Enter(Miner* pMiner)
+void MeetTime::Enter(Miner* pMiner)
 {
-  cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Smells Reaaal goood Elsa!";
+  cout << "\n" << "A few days later, Today is meeting day";
+  cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Hello, professor.";
 }
 
-void EatStew::Execute(Miner* pMiner)
+void MeetTime::Execute(Miner* pMiner)
 {
-  cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Tastes real good too!";
+  cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "In meeting";
 
   pMiner->GetFSM()->RevertToPreviousState();
 }
 
-void EatStew::Exit(Miner* pMiner)
+void MeetTime::Exit(Miner* pMiner)
 { 
-  cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Thankya li'lle lady. Ah better get back to whatever ah wuz doin'";
+  cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Bye, professor. See you next time.";
 }
 
 
-bool EatStew::OnMessage(Miner* pMiner, const Telegram& msg)
+bool MeetTime::OnMessage(Miner* pMiner, const Telegram& msg)
 {
   //send msg to global message handler
   return false;

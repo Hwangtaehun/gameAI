@@ -46,9 +46,9 @@ public:
     //set up the state machine
     m_pStateMachine = new StateMachine<MinersWife>(this);
 
-    m_pStateMachine->SetCurrentState(DoHouseWork::Instance());
+    m_pStateMachine->SetCurrentState(CheckCode::Instance());
 
-    m_pStateMachine->SetGlobalState(WifesGlobalState::Instance());
+    m_pStateMachine->SetGlobalState(ProfessorGlobalState::Instance());
   }
 
   ~MinersWife(){delete m_pStateMachine;}

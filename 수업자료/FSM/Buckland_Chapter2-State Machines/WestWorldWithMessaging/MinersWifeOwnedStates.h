@@ -14,25 +14,24 @@
 class MinersWife;
 
 
-
 //------------------------------------------------------------------------
 //
 
 //------------------------------------------------------------------------
-class WifesGlobalState : public State<MinersWife>
+class ProfessorGlobalState : public State<MinersWife>
 {  
 private:
   
-  WifesGlobalState(){}
+  ProfessorGlobalState(){}
 
   //copy ctor and assignment should be private
-  WifesGlobalState(const WifesGlobalState&);
-  WifesGlobalState& operator=(const WifesGlobalState&);
+  ProfessorGlobalState(const ProfessorGlobalState&);
+  ProfessorGlobalState& operator=(const ProfessorGlobalState&);
  
 public:
 
   //this is a singleton
-  static WifesGlobalState* Instance();
+  static ProfessorGlobalState* Instance();
   
   virtual void Enter(MinersWife* wife){}
 
@@ -48,20 +47,20 @@ public:
 //
 
 //------------------------------------------------------------------------
-class DoHouseWork : public State<MinersWife>
+class CheckCode : public State<MinersWife>
 {
 private:
 
-  DoHouseWork(){}
+  CheckCode(){}
   
   //copy ctor and assignment should be private
-  DoHouseWork(const DoHouseWork&);
-  DoHouseWork& operator=(const DoHouseWork&);
+  CheckCode(const CheckCode&);
+  CheckCode& operator=(const CheckCode&);
 
 public:
 
   //this is a singleton
-  static DoHouseWork* Instance();
+  static CheckCode* Instance();
   
   virtual void Enter(MinersWife* wife);
 
@@ -79,20 +78,20 @@ public:
 //
 
 //------------------------------------------------------------------------
-class VisitBathroom : public State<MinersWife>
+class WriteMemo : public State<MinersWife>
 {
 private:
   
-  VisitBathroom(){}
+  WriteMemo(){}
 
   //copy ctor and assignment should be private
-  VisitBathroom(const VisitBathroom&);
-  VisitBathroom& operator=(const VisitBathroom&);
+  WriteMemo(const WriteMemo&);
+  WriteMemo& operator=(const WriteMemo&);
  
 public:
 
   //this is a singleton
-  static VisitBathroom* Instance();
+  static WriteMemo* Instance();
   
   virtual void Enter(MinersWife* wife);
 
@@ -109,20 +108,50 @@ public:
 //
 
 //------------------------------------------------------------------------
-class CookStew : public State<MinersWife>
+class FindReference : public State<MinersWife>
+{
+private:
+
+	FindReference() {}
+
+	//copy ctor and assignment should be private
+	FindReference(const FindReference&);
+	FindReference& operator=(const FindReference&);
+
+public:
+
+	//this is a singleton
+	static FindReference* Instance();
+
+	virtual void Enter(MinersWife* wife);
+
+	virtual void Execute(MinersWife* wife);
+
+	virtual void Exit(MinersWife* wife);
+
+	virtual bool OnMessage(MinersWife* wife, const Telegram& msg);
+
+};
+
+
+//------------------------------------------------------------------------
+//
+
+//------------------------------------------------------------------------
+class InOffice : public State<MinersWife>
 {
 private:
   
-  CookStew(){}
+  InOffice(){}
 
   //copy ctor and assignment should be private
-  CookStew(const CookStew&);
-  CookStew& operator=(const CookStew&);
+  InOffice(const InOffice&);
+  InOffice& operator=(const InOffice&);
  
 public:
 
   //this is a singleton
-  static CookStew* Instance();
+  static InOffice* Instance();
   
   virtual void Enter(MinersWife* wife);
 
