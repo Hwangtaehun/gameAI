@@ -12,6 +12,8 @@
              (snore ?p)             ; ?p snores
              (checked ?p)           ; ?p is checked
              (saved ?p)             ; ?p is saved 
+             (errand ?p)            ; ?p runs errand
+             (happy ?p)             ; ?p is happy
              (forward ?x ?y))       ; only path ?x -> ?y 
 
 (:action moveto
@@ -49,6 +51,16 @@
   :parameters (?p1 ?p2 ?p3 ?p4 ?loc)
   :precondition (and (at ?p1 ?loc) (at ?p2 ?loc) (at ?p3 ?loc) (at ?p4 ?loc) (checked ?p1) (snore ?p2) (eaten ?p3) (eaten ?p4) (not (= ?p3 ?p4)))
   :effect (and (not (alive ?p2)) (saved ?p3) (saved ?p4)))
+  
+(:action delivery
+  :parameters (?p ?obj)
+  :precondition (and (checked ?p) (saved ?p) (errand ?p))
+  :effect (and (have ?p ?obj)))
+  
+(:action eat-together
+  :parameters (?p1 ?p2 ?p3 ?obj ?loc)
+  :precondition (and (at ?p1 ?loc) (at ?p2 ?loc) (at ?p3 ?loc) (have ?p1 ?obj) (not (= ?p2 ?p3)) (like ?p1 ?obj) (like ?p2 ?obj) (like ?p3 ?obj))
+  :effect (and (happy ?p1) (happy ?p3) (happy ?p3)))
   
 (:action give
   :parameters (?p1 ?p2 ?obj ?loc)

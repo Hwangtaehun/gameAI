@@ -10,4 +10,4 @@
            (forward red home) (forward red woods) (forward red grannyhouse)
            (forward wolf woods) (forward wolf grannyhouse)
            (forward home woods) (forward wood grannyhouse))  
-    (:goal (and (have red flower) (at red grannyhouse) (not (hungry wolf)) (not (alive wolf)) (checked huntsman))))
+    (:goal (and (have red flower) (at red grannyhouse) (eaten red) (eaten granny) (not (hungry wolf)) (not (alive wolf)) (checked huntsman))))
