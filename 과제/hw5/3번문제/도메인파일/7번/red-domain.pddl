@@ -45,7 +45,7 @@
   
 (:action check
   :parameters (?p1 ?p2 ?loc)
-  :precondition (and (at ?p1 ?loc) (at ?p2 ?loc) (not (eaten ?p1)) (snore ?p2))
+  :precondition (and (at ?p1 ?loc) (at ?p2 ?loc) (not (= ?p1 ?p2)) (not (eaten ?p1)) (snore ?p2))
   :effect (and (checked ?p1)))
   
 (:action save

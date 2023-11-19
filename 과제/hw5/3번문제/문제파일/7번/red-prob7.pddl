@@ -9,4 +9,4 @@
            (at granny grannyhouse) (like granny cakes) (path_know granny) (timing granny)
            (at huntsman grannyhouse) (like huntsman cakes) (path_know huntsman)
            (forward home woods) (forward woods grannyhouse))  
-    (:goal (and (have red flower) (not (alive wolf)) (happy huntsman))))
+    (:goal (and (have red flower) (at wolf grannyhouse) (happy huntsman))))
