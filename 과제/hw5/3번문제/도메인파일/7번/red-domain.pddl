@@ -14,12 +14,13 @@
              (saved ?p)             ; ?p is saved 
              (errand ?p)            ; ?p runs errand
              (happy ?p)             ; ?p is happy
+             (timing ?p)            ; ?p eaten timing
              (forward ?x ?y))       ; only path ?x -> ?y 
 
 (:action moveto
   :parameters (?p ?from ?to)
   :precondition (and (forward ?p ?to) (at ?p ?from) (not (stop ?p)))
-  :effect (and (at ?p ?to) (not (at ?p ?from))))
+  :effect (and (timing ?p) (at ?p ?to) (not (at ?p ?from))))
 
 (:action pick-up
   :parameters (?p ?obj ?loc)
@@ -33,9 +34,8 @@
   
 (:action tell-path
   :parameters (?p1 ?p2 ?loc)
-  :precondition (and (at ?p1 ?loc) (at ?p2 ?loc) 
-                (not (= ?p1 ?p2)) (not (path_know ?p1)) (path_know ?p2))
-  :effect (and (path_know ?p1) (stop ?p1) (not (stop ?p2)) (hungry ?p2)))
+  :precondition (and (at ?p1 ?loc) (at ?p2 ?loc) (not (= ?p1 ?p2)) (not (path_know ?p1)) (path_know ?p2))
+  :effect (and (path_know ?p1) (stop ?p1) (not (timing ?p1)) (not (stop ?p2)) (hungry ?p2)))
   
 (:action sleep-snoreloud
   :parameters (?p1 ?p2 ?p3 ?loc)
@@ -54,7 +54,7 @@
   
 (:action delivery
   :parameters (?p ?obj)
-  :precondition (and (checked ?p) (saved ?p) (errand ?p))
+  :precondition (and (saved ?p) (errand ?p))
   :effect (and (have ?p ?obj)))
   
 (:action eat-together
