@@ -23,7 +23,7 @@
 
 (:action pick-up
   :parameters (?p ?obj ?loc)
-  :precondition (and (at ?p ?loc) (stop ?p) (like ?p ?obj))
+  :precondition (and (at ?p ?loc) (errand ?p) (stop ?p) (like ?p ?obj))
   :effect (and (have ?p ?obj) (not (stop ?p))))
   
 (:action eat-alive
@@ -59,11 +59,5 @@
   
 (:action eat-together
   :parameters (?p1 ?p2 ?p3 ?obj ?loc)
-  :precondition (and (at ?p1 ?loc) (at ?p2 ?loc) (at ?p3 ?loc) (have ?p1 ?obj) (not (= ?p2 ?p3)) (like ?p1 ?obj) (like ?p2 ?obj) (like ?p3 ?obj))
-  :effect (and (happy ?p1) (happy ?p3) (happy ?p3)))
-  
-(:action give
-  :parameters (?p1 ?p2 ?obj ?loc)
-  :precondition (and (have ?p1 ?obj) (at ?p1 ?loc) (at ?p2 ?loc))
-  :effect (and (have ?p2 ?obj) 
-               (not (have ?p1 ?obj))))) 
+  :precondition (and (at ?p1 ?loc) (at ?p2 ?loc) (at ?p3 ?loc) (have ?p1 ?obj) (not (= ?p2 ?p3)) (like ?p2 ?obj) (like ?p3 ?obj))
+  :effect (and (happy ?p1) (happy ?p3) (happy ?p3)))) 

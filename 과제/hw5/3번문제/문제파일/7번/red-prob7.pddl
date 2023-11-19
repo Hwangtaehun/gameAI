@@ -4,7 +4,7 @@
     (:domain redridinghood)
     (:objects home grannyhouse woods red granny wolf huntsman wine flower cakes)
     (:init (alive red) (alive granny) (alive wolf) (alive huntsman)
-           (at red home) (have red wine) (like red flower) (like red cakes) (errand red)
+           (at red home) (like red flower) (errand red)
            (at wolf woods) (path_know wolf) (stop wolf)
            (at granny grannyhouse) (like granny cakes)
            (at huntsman grannyhouse) (like huntsman cakes)
