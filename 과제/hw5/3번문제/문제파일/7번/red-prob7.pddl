@@ -1,4 +1,4 @@
-;; problem file: red-prob1.pddl
+;; problem file: red-prob7.pddl
 
 (define (problem red-prob1)
     (:domain redridinghood)
@@ -9,4 +9,4 @@
            (at granny grannyhouse) (like granny cakes) (path_know granny) (timing granny)
            (at huntsman grannyhouse) (like huntsman cakes) (path_know huntsman)
            (forward home woods) (forward woods grannyhouse))  
-    (:goal (and (have red flower) (happy red) (eaten red) (eaten granny) (happy granny) (not (hungry wolf)) (not (alive wolf)) (happy huntsman))))
+    (:goal (and (have red flower) (not (alive wolf)) (happy huntsman))))
