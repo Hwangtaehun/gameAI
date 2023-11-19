@@ -59,5 +59,5 @@
   
 (:action eat-together
   :parameters (?p1 ?p2 ?p3 ?obj ?loc)
-  :precondition (and (at ?p1 ?loc) (at ?p2 ?loc) (at ?p3 ?loc) (have ?p1 ?obj) (not (= ?p2 ?p3)) (like ?p2 ?obj) (like ?p3 ?obj))
-  :effect (and (happy ?p1) (happy ?p3) (happy ?p3)))) 
+  :precondition (and (at ?p1 ?loc) (at ?p2 ?loc) (at ?p3 ?loc) (have ?p1 ?obj) (not (happy ?p1)) (not (= ?p2 ?p3)) (like ?p2 ?obj) (like ?p3 ?obj))
+  :effect (and (happy ?p1) (happy ?p2) (happy ?p3)))) 
