@@ -15,7 +15,7 @@
              (errand ?p)            ; ?p runs errand
              (happy ?p)             ; ?p is happy
              (timing ?p)            ; ?p eaten timing
-             (foodchain ?p1 ?p2)    ; ?p1 eaten ?p2
+             (foodchain ?p1 ?p2)    ; ?p1 eat ?p2
              (forward ?loc1 ?loc2)) ; only path ?loc1 -> ?loc2
 
 (:action moveto

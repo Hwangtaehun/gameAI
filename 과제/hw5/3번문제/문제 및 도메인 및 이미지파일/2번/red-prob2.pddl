@@ -1,4 +1,4 @@
-;; problem file: red-prob1.pddl
+;; problem file: red-prob2.pddl
 
 (define (problem red-prob1)
     (:domain redridinghood)
@@ -8,7 +8,5 @@
            (at wolf woods) (path_know wolf) (stop wolf)
            (at granny grannyhouse) (stop grannyhouse)
            (foodchine wolf granny)
-           (forward red home) (forward red woods) (forward red grannyhouse)
-           (forward wolf woods) (forward wolf grannyhouse)
-           (forward home woods) (forward wood grannyhouse))  
+           (forward home woods) (forward woods grannyhouse))  
     (:goal (and (path_know red) (have red flower) (not (hungry wolf)))))
