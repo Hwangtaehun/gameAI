@@ -14,7 +14,7 @@
              (saved ?p)             ; ?p is saved 
              (errand ?p)            ; ?p runs errand
              (happy ?p)             ; ?p is happy
-             (timing ?p)            ; ?p eaten timing
+             (timing ?p)            ; ?p eat timing
              (foodchain ?p1 ?p2)    ; ?p1 eat ?p2
              (forward ?loc1 ?loc2)) ; only path ?loc1 -> ?loc2
 

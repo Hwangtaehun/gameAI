@@ -1,10 +1,10 @@
 ;; problem file: red-prob2.pddl
 
-(define (problem red-prob1)
+(define (problem red-prob2)
     (:domain redridinghood)
-    (:objects home grannyhouse woods red granny wolf wine flower)
+    (:objects home grannyhouse woods red granny wolf flower)
     (:init (alive red) (alive granny) (alive wolf)
-           (at red home) (have red wine) (like red flower)
+           (at red home) (like red flower)
            (at wolf woods) (path_know wolf) (stop wolf)
            (at granny grannyhouse) (stop grannyhouse)
            (foodchine wolf granny)

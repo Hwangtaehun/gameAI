@@ -1,14 +1,12 @@
-;; problem file: red-prob1.pddl
+;; problem file: red-prob3.pddl
 
-(define (problem red-prob1)
+(define (problem red-prob3)
     (:domain redridinghood)
-    (:objects home grannyhouse woods red granny wolf wine flower)
+    (:objects home grannyhouse woods red granny wolf flower)
     (:init (alive red) (alive granny) (alive wolf)
-           (at red home) (have red wine) (like red flower)
-           (at wolf woods) (path_know wolf) (stop wolf)
-           (at granny grannyhouse)
-           (foodchine wolf granny) (foodchine wolf red)
-           (forward red home) (forward red woods) (forward red grannyhouse)
-           (forward wolf woods) (forward wolf grannyhouse)
-           (forward home woods) (forward wood grannyhouse))  
-    (:goal (and (path_know red) (have red flower) (eaten red) (eaten granny) (at red grannyhouse))))
+           (at red home) (like red flower)
+           (at wolf woods) (path_know wolf) (stop wolf) 
+           (foodchain wolf red) (foodchain wolf granny)
+           (at granny grannyhouse) (path_know granny) (timing granny)
+           (forward home woods) (forward woods grannyhouse))  
+    (:goal (and (have red flower) (eaten red) (eaten granny) (at wolf grannyhouse))))

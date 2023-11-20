@@ -1,8 +1,8 @@
 ;; problem file: red-prob7.pddl
 
-(define (problem red-prob1)
+(define (problem red-prob7)
     (:domain redridinghood)
-    (:objects home grannyhouse woods red granny wolf huntsman wine flower cakes)
+    (:objects home grannyhouse woods red granny wolf huntsman flower cakes)
     (:init (alive red) (alive granny) (alive wolf) (alive huntsman)
            (at red home) (like red flower) (errand red)
            (at wolf woods) (path_know wolf) (stop wolf) (foodchain wolf red) (foodchain wolf granny)
