@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public float moveSpeed = 5.0f;
+    public float rotationSpeed = 360.0f;
+    public float jumpSpeed = 5.0f;
     private CharacterController characterController;
     private float ySpeed;
     private float originalStepOffset;
-
-    public float moveSpeed = 5.0f;
-    public float rotationSpeed = 360.0f;
-    public float jumpSpeed;
 
     void Start()
     {
