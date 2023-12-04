@@ -9,11 +9,13 @@ public class Agent : MonoBehaviour
     public float rotation;
     public Vector3 velocity;
     protected Steering steering;
+    private Rigidbody aRigidBody;
 
     void Start()
     {
         velocity = Vector3.zero;
         steering = new Steering();
+        aRigidBody = GetComponent<Rigidbody>();
     }
 
     public void SetSteering(Steering steering)
@@ -23,6 +25,10 @@ public class Agent : MonoBehaviour
     
     public virtual void Update()
     {
+        if (aRigidBody == null){
+            return;
+        }
+
         Vector3 displacement = velocity * Time.deltaTime;
         orientation += rotation * Time.deltaTime;
         
@@ -53,5 +59,35 @@ public class Agent : MonoBehaviour
             velocity = Vector3.zero;
         }
         steering = new Steering();
+    }
+
+    public Vector3 OriToVec(float orientation)
+    {
+        Vector3 vector = Vector3.zero;
+        vector.x = Mathf.Sin(orientation * Mathf.Deg2Rad) * 1.0f;
+        vector.z = Mathf.Cos(orientation * Mathf.Deg2Rad) * 1.0f;
+        return vector.normalized;
+    }
+    
+    public virtual void FixedUpdate()
+    {
+        if(aRigidBody == null){
+            return;
+        }
+
+        Vector3 displacement = velocity * Time.deltaTime;
+        orientation += rotation * Time.deltaTime;
+
+        if (orientation < 0.0f)
+        {
+            orientation += 360.0f;
+        }
+        else if(orientation > 360.0f){
+            orientation -= 360.0f;
+        }
+
+        aRigidBody.AddForce(displacement, ForceMode.VelocityChange);
+        Vector3 orientationVector = OriToVec(orientation);
+        aRigidBody.rotation = Quaternion.LookRotation(orientationVector, Vector3.up);
     }
 }
