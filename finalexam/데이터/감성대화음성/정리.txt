@@ -1,1 +1,1 @@
-happiness:0, surprise:1, disgust:2, angry:3, fear:4, sadness:5, neutral:6 
+happiness:0, surprise:1, angry:2, fear:3, disgust:4 - s존재, sadness:5 - s존재, neutral:6 
