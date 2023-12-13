@@ -1,0 +1,2 @@
+happiness:0, surprise:1, disgust:2, angry:3, fear:4, sadness:5, neutral:6 
+하나만 하는 것보다 감정분석, 감성분석(긍정, 부정)으로 분류하기
